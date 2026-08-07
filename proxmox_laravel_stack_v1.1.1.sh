@@ -522,6 +522,9 @@ create_ct() {
     pct_args+=(--nameserver "$NAMESERVER")
   fi
 
+  printf '\nDEBUG pct command:\n'
+  printf '  %q' pct "${pct_args[@]}"
+  printf '\n\n'
   pct "${pct_args[@]}"
 
   pct start "$vmid"
