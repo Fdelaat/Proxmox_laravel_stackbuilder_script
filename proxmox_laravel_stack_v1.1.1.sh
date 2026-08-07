@@ -497,9 +497,6 @@ create_ct() {
   local net="name=eth0,bridge=$BRIDGE,firewall=1,ip=$ip/$PREFIX,gw=$GATEWAY,type=veth"
   [[ -n "$VLAN_TAG" ]] && net+=",tag=$VLAN_TAG"
 
-  info "Maak LXC $vmid ($hostname, $ip) ..."
-  register_created_ct "$vmid"
-
   # Bouw pct-argumenten als array op. Met de globale IFS zonder spatie mag een
   # constructie zoals ${NAMESERVER:+--nameserver "$NAMESERVER"} niet inline
   # worden gebruikt: die kan als één argument "--nameserver 1.2.3.4" eindigen.
@@ -522,9 +519,9 @@ create_ct() {
     pct_args+=(--nameserver "$NAMESERVER")
   fi
 
-  printf '\nDEBUG pct command:\n'
-  printf '  %q' pct "${pct_args[@]}"
-  printf '\n\n'
+  info "Maak LXC $vmid ($hostname, $ip) ..."
+  register_created_ct "$vmid"
+  
   pct "${pct_args[@]}"
 
   pct start "$vmid"
