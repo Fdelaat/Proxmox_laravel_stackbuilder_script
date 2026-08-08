@@ -1336,9 +1336,9 @@ full_stack() {
 
   # Dependency-first startup/order.
   section "Provisioning"
+  provision_web "$web_root"
   provision_db "$db_root"
   [[ "$INSTALL_REDIS_NOW" == "yes" ]] && provision_redis "$redis_root"
-  provision_web "$web_root"
   provision_worker "$worker_root"
 
   run_health_checks
