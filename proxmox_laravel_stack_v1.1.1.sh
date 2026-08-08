@@ -520,10 +520,10 @@ create_ct() {
   fi
 
   info "Maak LXC $vmid ($hostname, $ip) ..."
-  register_created_ct "$vmid"
   
   pct "${pct_args[@]}"
 
+  register_created_ct "$vmid"
   pct start "$vmid"
   wait_ct "$vmid"
   ok "LXC $vmid gestart."
